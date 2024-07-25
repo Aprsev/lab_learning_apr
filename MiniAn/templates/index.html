@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>热点图绘制</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>上传CSV文件并绘制热点图</h1>
+    <form action="/heatmap" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="text" name="unit_ids" placeholder="输入unit_id，用逗号分隔">
+        <input type="submit" value="上传并绘制">
+    </form>
+    <div id="plot"></div>
+    <script>
+        function plotHeatmap(plot_json) {
+            var plotDiv = document.getElementById('plot');
+            var plot = document.createElement('div');
+            Plotly.newPlot(plot, plot_json, {responsive: true});
+            plotDiv.appendChild(plot);
+        }
+
+        document.querySelector('form').onsubmit = function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            fetch('/heatmap', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                plotHeatmap(data.plot_json);
+            })
+            .catch(error => console.error('Error:', error));
+        };
+    </script>
+</body>
+</html>
