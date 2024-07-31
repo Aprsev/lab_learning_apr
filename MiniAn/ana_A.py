@@ -43,6 +43,8 @@ data = df[df['unit_id'].isin(unit_ids)].pivot_table(index='height', columns='wid
 data = data.fillna(0)
 data[data == 0] = np.nan  # 将A值为0的部分设置为NaN，以便在热点图中不显示
 
+print(data)
+
 # 使用imshow绘制热点图
 cax = ax.imshow(data, cmap=cmap, interpolation='nearest')
 

@@ -2,8 +2,7 @@ import cv2
 import numpy as np
  
 # 读取图像
-image = cv2.imread('D:\\Downloads\\Blue White Motivational Modern Aesthetic Sea Desktop Wallpaper.png')
-
+image = cv2.imread('D:\\Downloads\\tr.jpg')
 cv2.imshow('Original Image', image)
 
 # 定义卷积核 （kernel = np.ones((3, 3), np.float32) / 9，平均滤波器核）
